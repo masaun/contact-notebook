@@ -1,5 +1,5 @@
 import Web3 from "web3";
-const FALLBACK_WEB3_PROVIDER = process.env.REACT_APP_NETWORK || 'http://0.0.0.0:8545';   // Ganache-GUI
+const FALLBACK_WEB3_PROVIDER = process.env.REACT_APP_NETWORK || 'http://0.0.0.0:7545';   // Ganache-GUI
 //const FALLBACK_WEB3_PROVIDER = process.env.REACT_APP_NETWORK || 'http://0.0.0.0:8545'; // Ganache-CLI
 
 const getWeb3 = () =>
