@@ -76,6 +76,7 @@ class App extends Component {
               Wallet.abi,
               deployedNetwork && deployedNetwork.address,
             );
+            console.log(instance); // debug
           }
         }
         if (instance || instanceWallet) {
