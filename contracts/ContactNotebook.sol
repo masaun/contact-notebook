@@ -7,36 +7,48 @@ contract ContactNotebook {
 		string name;
 		address contactAddress;
 	}
-	Contact[] contacts;
+	Contact[] public contacts;
 
 
 	/* 連絡先の新規作成 */ 
-	function createContact(string _name, address _address) public returns (bool) {
+	function createContact(string memory _name, address _address) public returns (uint256 id) {
 		Contact memory contact = Contact({
 			name: _name,
 			contactAddress: _address
 		});
 		contacts.push(contact);
 
-		return true
+		uint256 id;
+		id = contacts.length - 1;
+
+		return id;
 	}
 
 
 	/* 連絡先の一覧取得 */ 
-	function getAllContact() public view returns (string name, address contactAddress) {
-		Contact memory contacts
+	// function getAllContact() public view returns (string _name, address _contactAddress) {
 
-		for (uint i=0; i < contacts.length; i++) {
-			name = contacts[i].name;
-			contactAddress = contacts[i].contactAddress;
-		}
+	// 	string _name;
+	// 	address _contactAddress;
 
-		return name, contactAddress;
-	}
+	// 	Contact memory contacts;
+
+	// 	for (uint i=0; i < contacts.length; i++) {
+	// 		_name = contacts[i].name;
+	// 		_contactAddress = contacts[i].contactAddress;
+	// 	}
+
+	// 	return (_name, _contactAddress);
+	// }
 	
 
 	/* 連絡先の個別取得 */ 
-	// function getContact () returns(bool res) internal {
-		
-	// }	
+	function getContact(uint256 _id) public view returns (string memory name, address contactAddress) {
+		Contact memory contact = contacts[_id];
+
+		name = contacts[_id].name;
+		contactAddress = contacts[_id].contactAddress;
+
+		return (name, contactAddress);
+	}	
 }
