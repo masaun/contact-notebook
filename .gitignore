@@ -67,3 +67,8 @@ zos.dev-*
 client/src/contracts
 
 .zos.session
+
+
+
+# others
+.python-version
