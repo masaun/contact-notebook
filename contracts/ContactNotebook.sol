@@ -25,6 +25,26 @@ contract ContactNotebook {
 	}
 
 
+	/* 連絡先一覧の総数を取得 */ 
+	function getNumberOfContact() public view returns (uint256) {
+		return contacts.length;
+	}
+
+
+	/* 連絡先の個別取得 */ 
+	function getContact(uint256 _id) public view returns (string memory name, address contactAddress) {
+
+		require (_id < contacts.length, "id is less than number of contact list");
+		
+		Contact memory contact = contacts[_id];
+
+		name = contacts[_id].name;
+		contactAddress = contacts[_id].contactAddress;
+
+		return (name, contactAddress);
+	}
+
+
 	/* 連絡先の一覧取得 */ 
 	// function getAllContact() public view returns (string _name, address _contactAddress) {
 
@@ -40,18 +60,4 @@ contract ContactNotebook {
 
 	// 	return (_name, _contactAddress);
 	// }
-	
-
-	/* 連絡先の個別取得 */ 
-	function getContact(uint256 _id) public view returns (string memory name, address contactAddress) {
-
-		require (_id < contacts.length, "id is less than number of contact list");
-		
-		Contact memory contact = contacts[_id];
-
-		name = contacts[_id].name;
-		contactAddress = contacts[_id].contactAddress;
-
-		return (name, contactAddress);
-	}	
 }
