@@ -44,6 +44,9 @@ contract ContactNotebook {
 
 	/* 連絡先の個別取得 */ 
 	function getContact(uint256 _id) public view returns (string memory name, address contactAddress) {
+
+		require (_id < contacts.length - 1, "id is less than number of contact list");
+		
 		Contact memory contact = contacts[_id];
 
 		name = contacts[_id].name;
