@@ -19,8 +19,9 @@ contract ContactNotebook {
 		contacts.push(contact);
 
 		uint256 id;
-		id = contacts.length - 1;
-
+		id = getNumberOfContact() - 1;  // Reference getNumberOfContact function which is written below
+		//id = contacts.length - 1;
+		
 		return id;
 	}
 
