@@ -270,6 +270,11 @@ class App extends Component {
     return (
       <div className={styles.wrapper}>
         <h1>ContactNotebook</h1>
+        <br />
+        <br />
+
+        {/* Add code of ContactNotebook to below */}
+
         <Hero />
         <Instructions
           ganacheAccounts={this.state.ganacheAccounts}
