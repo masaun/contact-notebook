@@ -17,6 +17,7 @@ const Header = () => (
           <li><a href="/evm" className={styles.link}> EVM Packages</a></li>
         )}
         <li><a href="/faq" className={styles.link}> FAQ</a></li>
+        <li><a href="/contact_notebook" className={styles.link}> Contact Notebook</a></li>
       </ul>
     </nav>
   </div>
