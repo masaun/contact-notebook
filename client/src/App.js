@@ -179,6 +179,8 @@ class App extends Component {
     );
   }
 
+
+  /* Body */ 
   renderBody() {
     return (
       <div className={styles.wrapper}>
@@ -214,6 +216,8 @@ class App extends Component {
     );
   }
 
+
+  /* component of body (above) */  
   renderInstructions() {
     return (
       <div className={styles.wrapper}>
@@ -262,6 +266,19 @@ class App extends Component {
     );
   }
 
+  renderContactNotebook() {
+    return (
+      <div className={styles.wrapper}>
+        <Hero />
+        <Instructions
+          ganacheAccounts={this.state.ganacheAccounts}
+          name="contact_notebook" accounts={this.state.accounts} />
+      </div>
+    );
+  }
+
+
+  /* router of header of body */ 
   render() {
     return (
       <div className={styles.App}>
@@ -270,6 +287,7 @@ class App extends Component {
           {this.state.route === 'counter' && this.renderBody()}
           {this.state.route === 'evm' && this.renderEVM()}
           {this.state.route === 'faq' && this.renderFAQ()}
+          {this.state.route === 'contact_notebook' && this.renderBody()}
         <Footer />
       </div>
     );
