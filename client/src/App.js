@@ -269,6 +269,7 @@ class App extends Component {
   renderContactNotebook() {
     return (
       <div className={styles.wrapper}>
+        <h1>ContactNotebook</h1>
         <Hero />
         <Instructions
           ganacheAccounts={this.state.ganacheAccounts}
@@ -287,7 +288,7 @@ class App extends Component {
           {this.state.route === 'counter' && this.renderBody()}
           {this.state.route === 'evm' && this.renderEVM()}
           {this.state.route === 'faq' && this.renderFAQ()}
-          {this.state.route === 'contact_notebook' && this.renderBody()}
+          {this.state.route === 'contact_notebook' && this.renderContactNotebook()}
         <Footer />
       </div>
     );
