@@ -30,12 +30,16 @@ class App extends Component {
     return [];
   }
 
+
+  /* It is set every time */ 
   componentDidMount = async () => {
     let Counter = {};
     let Wallet = {};
+    let ContactNotebook = {};  // Define variable of ContactNotebook
     try {
       Counter = require("./contracts/Counter.json");
       Wallet = require("./contracts/Wallet.json");
+      ContactNotebook = require("./contracts/ContactNotebook.json");  // Load ABI of contract of ContactNotebook
     } catch (e) {
       console.log(e);
     }
@@ -151,6 +155,14 @@ class App extends Component {
     await wallet.methods.renounceOwnership().send({ from: accounts[0] });
     this.updateTokenOwner();
   };
+
+  /* call getNumberOfContact function in contract of ContactNotebook */
+  getNumOfContact = async () => {
+    const { contract } = this.state;  // assign this.state to variable which is empty
+    const response = await contract.methods.getNumberOfContact().call();
+    this.setState({ NumContact: response })  // Update state with the result
+  }
+
 
   renderLoader() {
     return (

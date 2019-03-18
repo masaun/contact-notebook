@@ -3,7 +3,7 @@
   "name": "contact-notebook",
   "version": "0.1.0",
   "contracts": {
-    "Counter": "Counter",
-    "ContactNotebook": "ContactNotebook"
+    "ContactNotebook": "ContactNotebook",
+    "Counter": "Counter"
   }
 }
