@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import getWeb3, { getGanacheWeb3 } from "./utils/getWeb3";
+
+import getWeb3, { getGanacheWeb3 } from "./utils/getWeb3"; // import web3
+
 import Header from "./components/Header/index.js";
 import Footer from "./components/Footer/index.js";
 import Hero from "./components/Hero/index.js";
 import Web3Info from "./components/Web3Info/index.js";
 import CounterUI from "./components/Counter/index.js";
 import Wallet from "./components/Wallet/index.js";
+import ContactNotebook from "./components/ContactNotebook/index.js";  // Load component of ContactNotebook
 import Instructions from "./components/Instructions/index.js";
 import { Loader } from 'rimble-ui';
 
@@ -63,12 +66,13 @@ class App extends Component {
         balance = web3.utils.fromWei(balance, 'ether');
         let instance = null;
         let instanceWallet = null;
+        let instanceContactNotebook = null;  // This instance is contract of ContactNotebook
         let deployedNetwork = null;
         if (Counter.networks) {
           deployedNetwork = Counter.networks[networkId.toString()];
           if (deployedNetwork) {
             instance = new web3.eth.Contract(
-              Counter.abi,
+              Counter.abi, // This ABI is contract of Counter
               deployedNetwork && deployedNetwork.address,
             );
           }
@@ -80,17 +84,30 @@ class App extends Component {
               Wallet.abi,
               deployedNetwork && deployedNetwork.address,
             );
-            console.log(instance); // debug
+            console.log('instance', instance); // debug
+            console.log('instanceWallet', instanceWallet); // debug
           }
         }
-        if (instance || instanceWallet) {
+        if (ContactNotebook.networks) {
+          deployedNetwork = ContactNotebook.networks[networkId.toString()];
+          if (deployedNetwork) {
+            instanceContactNotebook = new web3.eth.Contract(
+              ContactNotebook.abi, // This ABI is contract of ContactNotebook
+              deployedNetwork && deployedNetwork.address,
+            );
+            console.log('instanceContactNotebook', instanceContactNotebook); // debug
+          }
+        }
+
+        // Set state of infomation of Web3 and Ganache to each instance
+        if (instance || instanceWallet || instanceContactNotebook) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId,
-            isMetaMask, contract: instance, wallet: instanceWallet }, () => {
-              this.refreshValues(instance, instanceWallet);
+            isMetaMask, contract: instance, wallet: instanceWallet, NumContact: instanceContactNotebook }, () => {
+              this.refreshValues(instance, instanceWallet, instanceContactNotebook);
               setInterval(() => {
-                this.refreshValues(instance, instanceWallet);
+                this.refreshValues(instance, instanceWallet, instanceContactNotebook);
               }, 5000);
             });
         }
@@ -138,6 +155,21 @@ class App extends Component {
     this.setState({ tokenOwner: response.toString() === accounts[0].toString() });
   };
 
+  /* call getNumberOfContact function in contract of ContactNotebook */
+  getNumOfContact = async () => {
+    //const { contract } = this.state;  // assign this.state to variable which is empty
+    const { contract } = this.state;  // assign this.state to variable which is empty
+    const { NumContact } = this.state;  // assign this.state to variable which is empty
+    console.log('contractの中身', contract)  // Debug
+    console.log('NumContactの中身', contract)  // Debug
+
+    //const contract = new web3.eth.Contract(ContactNotebook.abi, ContactNotebook.address)
+    const response = await contract.methods.getNumberOfContact().call();
+    this.setState({ NumContact: response })  // Update state with the result
+
+    console.log('response of getNumberOfContact', response)  // Debug
+  };
+
   increaseCount = async (number) => {
     const { accounts, contract } = this.state;
     await contract.methods.increaseCounter(number).send({ from: accounts[0] });
@@ -155,13 +187,6 @@ class App extends Component {
     await wallet.methods.renounceOwnership().send({ from: accounts[0] });
     this.updateTokenOwner();
   };
-
-  /* call getNumberOfContact function in contract of ContactNotebook */
-  getNumOfContact = async () => {
-    const { contract } = this.state;  // assign this.state to variable which is empty
-    const response = await contract.methods.getNumberOfContact().call();
-    this.setState({ NumContact: response })  // Update state with the result
-  }
 
 
   renderLoader() {
@@ -266,7 +291,7 @@ class App extends Component {
           <div className={styles.widgets}>
             <Web3Info {...this.state} />
             <Wallet
-              renounce={this.renounceOwnership}
+              renounce={this.renounceOwnership} // assign renounceOwnership to renounce
               {...this.state} />
           </div>
           <Instructions
@@ -281,16 +306,26 @@ class App extends Component {
   renderContactNotebook() {
     return (
       <div className={styles.wrapper}>
-        <h1>ContactNotebook</h1>
-        <br />
-        <br />
-
-        {/* Add code of ContactNotebook to below */}
-
-        <Hero />
-        <Instructions
-          ganacheAccounts={this.state.ganacheAccounts}
-          name="contact_notebook" accounts={this.state.accounts} />
+        {!this.state.web3 && this.renderLoader()}
+        {this.state.web3 && !this.state.contract && (
+          this.renderDeployCheck('contact_notebook')
+        )}
+        {this.state.web3 && this.state.contract && (
+          <div className={styles.contracts}>
+            <h1>ContactNotebook</h1>
+            <p>test text 1</p>
+            <p>test text 2</p>
+            <div className={styles.widgets}>
+              <Web3Info {...this.state} />
+              <ContactNotebook
+                contactIndex={this.getNumOfContact}  // assign getNumOfContact to contactIndex
+                {...this.state} />
+            </div>
+            <Instructions
+              ganacheAccounts={this.state.ganacheAccounts}
+              name="contact_notebook" accounts={this.state.accounts} />
+          </div>
+        )}
       </div>
     );
   }
