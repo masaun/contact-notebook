@@ -6,7 +6,7 @@ import styles from './ContactNotebook.module.scss';
 export default class ContactNotebook extends Component {
 
   render() {
-  	const { NumContact } = this.props;  // assign this.props
+  	const { NumContact, numberOfContact } = this.props;  // assign this.props
     //const { contract, NumContact } = this.props;  // assign this.props
     return (
       // in progress
@@ -24,13 +24,16 @@ export default class ContactNotebook extends Component {
 
         <div className={styles.dataPoint}>
           <div className={styles.label}>
-            Counter Value:
+            Get Number of contacts:
           </div>
       	  {/*
           <div className={styles.value}>
             {count}
           </div>
           */}
+          <div className={styles.value}>
+            {numberOfContact}
+          </div>
         </div>
 
         <div className={styles.label}>
