@@ -163,10 +163,23 @@ class App extends Component {
     console.log('NumContactの中身', NumContact)  // Debug
 
     const response = await  NumContact.methods.getNumberOfContact().call();
-    this.setState({ numberOfContact: response })  // Update state with the result（and set in state）
+    this.setState({ numberOfContact: response })  // Update state with the result（and append into this.state）
 
     console.log('response of getNumberOfContact', response)  // Debug
   };
+
+  createContact = async (name, address) => {
+    const { accounts, NumContact } = this.state;
+
+    //const response = await NumContact.methods.createContact().send();
+    const response = await NumContact.methods.createContact(name, address).send({ from: accounts[0] });
+    //const response = await NumContact.methods.createContact().send("鈴木太郎", "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2");  // Temporarily test by assigning constant value
+    //const response = await NumContact.methods.createContact().send({ _name: "鈴木太郎", _address: "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2"});  // Temporarily test by assigning constant value
+    this.setState({ createNewContact: response })
+
+    console.log('response of createContact', response)  // Debug
+  }
+
 
   increaseCount = async (number) => {
     const { accounts, contract } = this.state;
@@ -311,17 +324,13 @@ class App extends Component {
         {this.state.web3 && this.state.contract && (
           <div className={styles.contracts}>
             <h1>ContactNotebook</h1>
-            <p>test text 1</p>
-            <p>test text 2</p>
             <div className={styles.widgets}>
               <Web3Info {...this.state} />
               <ContactNotebook
+                create_new_contact={this.createContact}
                 contactIndex={this.getNumOfContact}  // assign getNumOfContact to contactIndex
                 {...this.state} />
             </div>
-            <Instructions
-              ganacheAccounts={this.state.ganacheAccounts}
-              name="contact_notebook" accounts={this.state.accounts} />
           </div>
         )}
       </div>
