@@ -6,7 +6,7 @@ import styles from './ContactNotebook.module.scss';
 export default class ContactNotebook extends Component {
 
   render() {
-  	const { NumContact, numberOfContact, createNewContact, getIndividualContact } = this.props;  // assign this.props
+  	const { NumContact, numberOfContact, createNewContact, getIndividualContact, getIndividualContact_name, getIndividualContact_contactAddress } = this.props;  // assign this.props
 
     return (
       <div className={styles.counter}>
@@ -39,7 +39,9 @@ export default class ContactNotebook extends Component {
             Get Individual Contact:
           </div>
           <div className={styles.value}>
-            {getIndividualContact}
+            { /* {getIndividualContact} */}
+            {getIndividualContact_name}
+            {getIndividualContact_contactAddress}
           </div>
         </div>
         <div className={styles.buttons}>

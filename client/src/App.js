@@ -181,9 +181,13 @@ class App extends Component {
   getContact = async (id) => {
     const { NumContact } = this.state;
     const response = await NumContact.methods.getContact(id).call();
-    this.setState({ getIndividualContact: response.name });
+    this.setState({ getIndividualContact: response });
+    this.setState({ getIndividualContact_name: response.name });
+    this.setState({ getIndividualContact_contactAddress: response.contactAddress });
 
-    console.log('response of getContact', response)  // Debug
+    console.log('response of getContact', response)                 // Debug
+    console.log('response of name by called getContact function', response.name)            // Debug
+    console.log('response of contactAddress by called getContact function', response.contactAddress)  // Debug
   }
 
 
