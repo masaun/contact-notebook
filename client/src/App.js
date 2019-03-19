@@ -157,13 +157,13 @@ class App extends Component {
 
   /* call getNumberOfContact function in contract of ContactNotebook */
   getNumOfContact = async () => {
-    const { contract } = this.state;    // assign this.state to variable which is empty
+    const { contract } = this.state;    // assign this.state to variable which is empty（Don't use）
     const { NumContact } = this.state;  // assign this.state to variable which is empty
-    console.log('contractの中身', contract)    // Debug
+    console.log('contractの中身', contract)      // Debug（Don't use）
     console.log('NumContactの中身', NumContact)  // Debug
 
     const response = await  NumContact.methods.getNumberOfContact().call();
-    this.setState({ numberOfContact: response })  // Update state with the result
+    this.setState({ numberOfContact: response })  // Update state with the result（and set in state）
 
     console.log('response of getNumberOfContact', response)  // Debug
   };
