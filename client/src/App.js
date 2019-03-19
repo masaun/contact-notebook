@@ -157,11 +157,10 @@ class App extends Component {
 
   /* call getNumberOfContact function in contract of ContactNotebook */
   getNumOfContact = async () => {
-    //const { contract } = this.state;  // assign this.state to variable which is empty
-    const { contract } = this.state;  // assign this.state to variable which is empty
+    const { contract } = this.state;    // assign this.state to variable which is empty
     const { NumContact } = this.state;  // assign this.state to variable which is empty
-    console.log('contractの中身', contract)  // Debug
-    console.log('NumContactの中身', contract)  // Debug
+    console.log('contractの中身', contract)    // Debug
+    console.log('NumContactの中身', NumContact)  // Debug
 
     //const contract = new web3.eth.Contract(ContactNotebook.abi, ContactNotebook.address)
     const response = await contract.methods.getNumberOfContact().call();
