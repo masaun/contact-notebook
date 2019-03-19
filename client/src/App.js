@@ -163,7 +163,8 @@ class App extends Component {
     console.log('NumContactの中身', NumContact)  // Debug
 
     //const contract = new web3.eth.Contract(ContactNotebook.abi, ContactNotebook.address)
-    const response = await contract.methods.getNumberOfContact().call();
+    //const response = await contract.methods.getNumberOfContact().call();
+    const response = await  NumContact.methods.getNumberOfContact().call();
     this.setState({ NumContact: response })  // Update state with the result
 
     console.log('response of getNumberOfContact', response)  // Debug
