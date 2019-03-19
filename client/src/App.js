@@ -155,7 +155,7 @@ class App extends Component {
     this.setState({ tokenOwner: response.toString() === accounts[0].toString() });
   };
 
-  /* call getNumberOfContact function in contract of ContactNotebook */
+  /* Call getNumberOfContact function in contract of ContactNotebook */
   getNumOfContact = async () => {
     const { contract } = this.state;    // assign this.state to variable which is empty（Don't use）
     const { NumContact } = this.state;  // assign this.state to variable which is empty
@@ -168,16 +168,22 @@ class App extends Component {
     console.log('response of getNumberOfContact', response)  // Debug
   };
 
+  /* Send value to createContact function in contract of ContactNotebook */
   createContact = async (name, address) => {
     const { accounts, NumContact } = this.state;
-
-    //const response = await NumContact.methods.createContact().send();
     const response = await NumContact.methods.createContact(name, address).send({ from: accounts[0] });
-    //const response = await NumContact.methods.createContact().send("鈴木太郎", "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2");  // Temporarily test by assigning constant value
-    //const response = await NumContact.methods.createContact().send({ _name: "鈴木太郎", _address: "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2"});  // Temporarily test by assigning constant value
-    this.setState({ createNewContact: response })
+    this.setState({ createNewContact: response });
 
     console.log('response of createContact', response)  // Debug
+  }
+
+  /* Call getContact function in contract of ContactNotebook */
+  getContact = async (id) => {
+    const { NumContact } = this.state;
+    const response = await NumContact.methods.getContact(id).call();
+    this.setState({ getIndividualContact: response.name });
+
+    console.log('response of getContact', response)  // Debug
   }
 
 
@@ -328,7 +334,8 @@ class App extends Component {
               <Web3Info {...this.state} />
               <ContactNotebook
                 create_new_contact={this.createContact}
-                contactIndex={this.getNumOfContact}  // assign getNumOfContact to contactIndex
+                get_individual_contact={this.getContact}
+                contactIndex={this.getNumOfContact}      // assign getNumOfContact to contactIndex
                 {...this.state} />
             </div>
           </div>
