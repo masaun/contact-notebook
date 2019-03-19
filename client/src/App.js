@@ -172,9 +172,11 @@ class App extends Component {
   createContact = async (name, address) => {
     const { accounts, NumContact } = this.state;
     const response = await NumContact.methods.createContact(name, address).send({ from: accounts[0] });
-    this.setState({ createNewContact: response });
+    //this.setState({ createNewContact: response });
+    this.setState({ createNewContact_transactionHash: response.transactionHash });  // Get Tx hash which is created new contact
 
     console.log('response of createContact', response)  // Debug
+    console.log('response of transactionHash of createContact', response.transactionHash)  // Debug
   }
 
   /* Call getContact function in contract of ContactNotebook */
