@@ -130,12 +130,15 @@ class App extends Component {
     }
   }
 
-  refreshValues = (instance, instanceWallet) => {
+  refreshValues = (instance, instanceWallet, instanceContactNotebook) => {
     if (instance) {
       this.getCount();
     }
     if (instanceWallet) {
       this.updateTokenOwner();
+    }
+    if (instanceContactNotebook) {
+      this.getNumOfContact();
     }
   }
 

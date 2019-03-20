@@ -30,6 +30,9 @@ export default class ContactNotebook extends Component {
           </div>
         </div>
         <div className={styles.buttons}>
+          <p>name<input type="text" value="" /></p>
+          <p>contactAddress<input type="text" value="" /></p>
+
           <Button
             onClick={() => this.props.create_new_contact("鈴木太郎", "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2")}
             size="small">Create New Contact</Button>
