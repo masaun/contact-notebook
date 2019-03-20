@@ -182,6 +182,16 @@ class App extends Component {
     console.log('response of transactionHash of createContact', response.transactionHash)  // Debug
   }
 
+  onNameChange(event) {
+    this.setState({ name: event.target.value})
+    console.log('onNameChange', event.target.valuee)  // Debug
+  }
+
+  onContactAddress(event) {
+    this.setState({ contactAddress: event.target.value})
+    console.log('onContactAddress', event.target.value)  // Debug
+  }  
+
   /* Call getContact function in contract of ContactNotebook */
   getContact = async (id) => {
     const { NumContact } = this.state;
