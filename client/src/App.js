@@ -15,13 +15,33 @@ import { Loader } from 'rimble-ui';
 import styles from './App.module.scss';
 
 class App extends Component {
-  state = {
-    storageValue: 0,
-    web3: null,
-    accounts: null,
-    contract: null,
-    route: window.location.pathname.replace("/","")
-  };
+  // state = {
+  //   storageValue: 0,
+  //   web3: null,
+  //   accounts: null,
+  //   contract: null,
+  //   route: window.location.pathname.replace("/",""),
+  // };
+
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      storageValue: 0,
+      web3: null,
+      accounts: null,
+      contract: null,
+      route: window.location.pathname.replace("/",""),
+      contactName: '佐藤',             // For onNameChange
+      contactAddress: '',   // For onContactAddress
+      contactLists: []
+    }
+    // add
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onContactAddressChange = this.onContactAddressChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
   getGanacheAddresses = async () => {
     if (!this.ganacheProvider) {
@@ -173,7 +193,8 @@ class App extends Component {
 
   /* Send value to createContact function in contract of ContactNotebook */
   createContact = async (name, address) => {
-    const { accounts, NumContact } = this.state;
+    const { accounts, NumContact, contactName, contactAddress } = this.state;
+    //const { accounts, NumContact } = this.state;
     const response = await NumContact.methods.createContact(name, address).send({ from: accounts[0] });
     //this.setState({ createNewContact: response });
     this.setState({ createNewContact_transactionHash: response.transactionHash });  // Get Tx hash which is created new contact
@@ -183,14 +204,35 @@ class App extends Component {
   }
 
   onNameChange(event) {
-    this.setState({ name: event.target.value})
-    console.log('onNameChange', event.target.valuee)  // Debug
+    this.setState({ contactName: event.target.value })
+    console.log('onNameChange', event.target.value)  // Debug
   }
 
-  onContactAddress(event) {
-    this.setState({ contactAddress: event.target.value})
+  onContactAddressChange(event) {
+    this.setState({ contactAddress: event.target.value })
     console.log('onContactAddress', event.target.value)  // Debug
   }  
+
+
+  // onSubmit() {
+  //   this.state.web3.eth.getAccounts((error, accounts) => {
+  //     postToken.deployed().then((instance) => {
+  //       postTokenInstance = instance
+  //       return postTokenInstance.mint(this.state.title, this.state.content, {from: accounts[0], gas: 1000000})
+  //   })
+  // }
+
+  onSubmit(event) {
+    console.log(this.state);  // Debug
+  }
+
+  submit() {
+    const { value } = this.state;
+    this.setState({
+      name: '',
+      contactAddress: value
+    });
+  }
 
   /* Call getContact function in contract of ContactNotebook */
   getContact = async (id) => {
@@ -356,6 +398,19 @@ class App extends Component {
                 get_individual_contact={this.getContact}
                 contactIndex={this.getNumOfContact}      // assign getNumOfContact to contactIndex
                 {...this.state} />
+            </div>
+
+            <div className={styles.widgets}>
+              <form create_new_contact={this.createContact}>
+                <p>name<input type="text" onChange={this.onNameChange.bind(this)} /></p>
+                <p>contactAddress<input type="text" onChange={this.onContactAddressChange.bind(this)} /></p>
+                {/* <button name="submit" onClick={this.onSubmit.bind(this)}>Submit</button> */}
+                <button name="submit" onClick={() => this.props.create_new_contact("鈴木", "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2")}>Submit</button>
+
+
+                <div>{this.state.contactName}</div>
+                <div>{this.state.contactAddress}</div>
+              </form>
             </div>
           </div>
         )}

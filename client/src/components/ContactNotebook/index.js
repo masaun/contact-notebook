@@ -6,7 +6,7 @@ import styles from './ContactNotebook.module.scss';
 export default class ContactNotebook extends Component {
 
   render() {
-  	const { NumContact, numberOfContact, createNewContact, createNewContact_transactionHash, getIndividualContact, getIndividualContact_name, getIndividualContact_contactAddress, name, contactAddress } = this.props;  // assign this.props
+  	const { NumContact, numberOfContact, createNewContact, createNewContact_transactionHash, getIndividualContact, getIndividualContact_name, getIndividualContact_contactAddress, contactName, contactAddress } = this.props;  // assign this.props
 
     return (
       <div className={styles.counter}>
@@ -25,18 +25,25 @@ export default class ContactNotebook extends Component {
             Create New Contact:
           </div>
           <div className={styles.value}>
-            { /* {createNewContact} */}
+            { /* {createNewContact} */ }
             {createNewContact_transactionHash}
           </div>
         </div>
         <div className={styles.buttons}>
-          <p>name<input type="text" value={this.state.name} onChange={this.onNameChange} /></p>
-          <p>contactAddress<input type="text" value={this.state.contactAddress} onChange={this.onContactAddressChange} /></p>
-
           <Button
             onClick={() => this.props.create_new_contact("鈴木太郎", "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2")}
             size="small">Create New Contact</Button>
         </div>
+
+        <form create_new_contact={this.createContact}>
+          <div className={styles.buttons}>
+            <p>name<input type="text" onChange={this.onNameChange} /></p>
+
+            <Button
+              onClick={() => this.props.create_new_contact(contactName, "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2")}
+              size="small">Create New Contact by variable</Button>
+          </div>
+        </form>
 
         <div className={styles.dataPoint}>
           <div className={styles.label}>
@@ -50,7 +57,7 @@ export default class ContactNotebook extends Component {
         </div>
         <div className={styles.buttons}>
           <Button
-            onClick={() => this.props.get_individual_contact(0)}
+            onClick={() => this.props.get_individual_contact(19)}
             size="small">Get Individual Contact</Button>
         </div>
 

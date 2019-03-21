@@ -1,11 +1,12 @@
 # contact-notebook
 
-### Frontend
+### Setup ZeppelinOS
 ```
-$ npm install
-```
-```
-$ cd client && npm run start
+zos init contact-notebook
+zos add ContactNotebook
+zos session --network development --expires 3600
+zos push --deploy-dependencies
+zos create ContactNotebook
 ```
 
 <br>
@@ -26,11 +27,15 @@ Set private network (http://127.0.0.1:7545)
 <br>
 
 
-### Setup ZeppelinOS
+### Frontend
+- For the first time
 ```
-zos init
-zos add ContactNotebook
-zos session --network development --expires 3600
-zos push --deploy-dependencies
-zos create ContactNotebook
+$ cd client
+$ npm install
+$ npm run start
+```
+
+- For the second time 〜
+```
+$ cd client && npm run start
 ```
