@@ -6,7 +6,7 @@ import styles from './ContactNotebook.module.scss';
 export default class ContactNotebook extends Component {
 
   render() {
-  	const { NumContact, numberOfContact, createNewContact, createNewContact_transactionHash, getIndividualContact, getIndividualContact_name, getIndividualContact_contactAddress, contactName, contactAddress } = this.props;  // assign this.props
+  	const { NumContact, numberOfContact, createNewContact, createNewContact_transactionHash, RemoveContact_transactionHash, getIndividualContact, getIndividualContact_name, getIndividualContact_contactAddress, contactName, contactAddress } = this.props;  // assign this.props
 
     return (
       <div className={styles.counter}>
@@ -59,7 +59,7 @@ export default class ContactNotebook extends Component {
         <div className={styles.buttons}>
           <Button
             onClick={() => this.props.get_contact(1)}
-            size="small">Get Individual Contact</Button>
+            size="small">Get Contact</Button>
         </div>
 
         <div className={styles.dataPoint}>
@@ -76,11 +76,14 @@ export default class ContactNotebook extends Component {
             size="small">Get Index of Contacts</Button>
         </div>
 
+        { /* 
         <div className={styles.buttons}>
+          {RemoveContact_transactionHash}
           <Button
             onClick={() => this.props.remove_contact(1)}
-            size="small">Remove Individual Contact</Button>
-        </div>
+            size="small">Remove Contact</Button>
+        </div>  
+        */ } 
       </div>
     );
   }

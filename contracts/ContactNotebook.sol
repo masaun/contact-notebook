@@ -62,20 +62,18 @@ contract ContactNotebook is Initializable {
 
 
 	/* Remove contact */
-	function removeContact(uint256 _id) public returns (bool) {
-		require (getNumberOfContact() > 0, "contact does not exist");
-		require (_id < contacts.length, "id is less than number of contact list");
+	// function removeContact(uint256 _id) public returns (bool) {
+	// 	require (getNumberOfContact() > 0, "contact does not exist");
+	// 	require (_id < contacts.length, "id is less than number of contact list");
 
-		Contact memory contact = contacts[_id];
-		delete contacts[_id];
+	// 	Contact memory contact = contacts[_id];
+	// 	delete contacts[_id];
 
-		emit RemovedContact(_id);
+	// 	emit RemovedContact(_id);
 
-		return true;
-	}
+	// 	return true;
+	// }
 	
-
-
 
 	/* 連絡先の一覧取得 */ 
 	// function getAllContact() public view returns (string _name, address _contactAddress) {

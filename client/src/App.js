@@ -251,7 +251,7 @@ class App extends Component {
   removeContact = async (id) => {
     const { accounts, NumContact } = this.state;
     const response = await NumContact.methods.removeContact(id).send({ from: accounts[0] })
-
+    this.setState({ RemoveContact_transactionHash: response.transactionHash });  // Get Tx hash which is created new contact
     console.log('response of removeContact', response);
   }  
 
@@ -405,7 +405,7 @@ class App extends Component {
                 create_new_contact={this.createContact}
                 get_contact={this.getContact}
                 contactsIndex={this.getNumOfContact}      // assign getNumOfContact to contactIndex
-                remove_contact={this.removeContact}
+                //remove_contact={this.removeContact}
                 {...this.state} />
             </div>
 
