@@ -13,9 +13,9 @@ contract ContactNotebook is Initializable {
 
 
 	/* Constructor */ 
-	function initialize(uint _id) public initializer {
-		uint256 id;
-		id = _id;
+	function initialize(uint256 _testNum) public initializer {
+		uint256 testNum;
+		testNum = _testNum;
 	}
 
 
@@ -53,6 +53,20 @@ contract ContactNotebook is Initializable {
 
 		return (name, contactAddress);
 	}
+
+
+	/* Remove contact */
+	function removeContact(uint256 _id) public returns (bool) {
+		require (getNumberOfContact() > 0, "contact does not exist");
+		require (_id < contacts.length, "id is less than number of contact list");
+
+		Contact memory contact = contacts[_id];
+		delete contact;
+
+		return true;
+	}
+	
+
 
 
 	/* 連絡先の一覧取得 */ 
