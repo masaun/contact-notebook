@@ -25,7 +25,7 @@ export default class ContactNotebook extends Component {
             Create New Contact:
           </div>
           <div className={styles.value}>
-            { /* {createNewContact} */ }
+            { /* {createNewContact} */}
             {createNewContact_transactionHash}
           </div>
         </div>

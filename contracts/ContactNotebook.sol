@@ -1,13 +1,22 @@
 pragma solidity ^0.5.0;
 
+import "zos-lib/contracts/Initializable.sol";
 
-contract ContactNotebook {
+
+contract ContactNotebook is Initializable {
 
 	struct Contact {
 		string name;
 		address contactAddress;
 	}
 	Contact[] public contacts;
+
+
+	/* Constructor */ 
+	function initialize(uint _id) public initializer {
+		uint256 id;
+		id = _id;
+	}
 
 
 	/* 連絡先の新規作成 */ 
