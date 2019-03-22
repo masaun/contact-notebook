@@ -400,7 +400,7 @@ class App extends Component {
           <div className={styles.contracts}>
             <h1>ContactNotebook</h1>
             <div className={styles.widgets}>
-              <Web3Info {...this.state} />
+              { /* <Web3Info {...this.state} /> */ }
               <ContactNotebook
                 create_new_contact={this.createContact}
                 get_contact={this.getContact}
@@ -409,16 +409,17 @@ class App extends Component {
                 {...this.state} />
             </div>
 
+            <div className={styles.widgets} style={{textAlign: 'right'}}>
+              {this.state.getIndividualContact_name} <br />
+              {this.state.getIndividualContact_contactAddress}
+            </div>
+
             <div className={styles.widgets}>
               <form create_new_contact={this.createContact}>
                 <p>name<input type="text" onChange={this.onNameChange.bind(this)} /></p>
                 <p>contactAddress<input type="text" onChange={this.onContactAddressChange.bind(this)} /></p>
                 {/* <button name="submit" onClick={this.onSubmit.bind(this)}>Submit</button> */}
                 <button name="submit" onClick={() => this.props.create_new_contact("鈴木", "0xBa7fA8fd86Ce0154eF61927681C2AE5ee246A9A2")}>Submit</button>
-
-
-                <div>{this.state.contactName}</div>
-                <div>{this.state.contactAddress}</div>
               </form>
             </div>
           </div>
