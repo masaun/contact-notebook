@@ -70,6 +70,7 @@ contract ContactNotebook is Initializable {
 		delete contact;
 
 		emit RemovedContact(_id);
+
 		return true;
 	}
 	

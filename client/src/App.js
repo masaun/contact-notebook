@@ -247,6 +247,14 @@ class App extends Component {
     console.log('response of contactAddress by called getContact function', response.contactAddress)  // Debug
   }
 
+  /* Call removeContact function in contract of ContactNotebook */ 
+  removeContact = async (id) => {
+    const { accounts, NumContact } = this.state;
+    const response = await NumContact.methods.removeContact(id).send({ from: accounts[0] })
+
+    console.log('response of removeContact', response);
+  }  
+
 
   increaseCount = async (number) => {
     const { accounts, contract } = this.state;
@@ -395,8 +403,9 @@ class App extends Component {
               <Web3Info {...this.state} />
               <ContactNotebook
                 create_new_contact={this.createContact}
-                get_individual_contact={this.getContact}
-                contactIndex={this.getNumOfContact}      // assign getNumOfContact to contactIndex
+                get_contact={this.getContact}
+                contactsIndex={this.getNumOfContact}      // assign getNumOfContact to contactIndex
+                remove_contact={this.removeContact}
                 {...this.state} />
             </div>
 

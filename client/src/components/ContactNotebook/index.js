@@ -55,6 +55,7 @@ export default class ContactNotebook extends Component {
             {getIndividualContact_contactAddress}
           </div>
         </div>
+
         <div className={styles.buttons}>
           <Button
             onClick={() => this.props.get_individual_contact(19)}
@@ -71,8 +72,14 @@ export default class ContactNotebook extends Component {
         </div>
         <div className={styles.buttons}>
           <Button
-            onClick={() => this.props.contactIndex()}
-            size="small">Get Index of Contact</Button>
+            onClick={() => this.props.contactsIndex()}
+            size="small">Get Index of Contacts</Button>
+        </div>
+
+        <div className={styles.buttons}>
+          <Button
+            onClick={() => this.props.remove_contact(1)}
+            size="small">Remove Individual Contact</Button>
         </div>
       </div>
     );
