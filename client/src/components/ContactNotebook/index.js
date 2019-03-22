@@ -58,7 +58,7 @@ export default class ContactNotebook extends Component {
 
         <div className={styles.buttons}>
           <Button
-            onClick={() => this.props.get_individual_contact(19)}
+            onClick={() => this.props.get_contact(1)}
             size="small">Get Individual Contact</Button>
         </div>
 

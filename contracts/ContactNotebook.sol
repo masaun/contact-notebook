@@ -67,7 +67,7 @@ contract ContactNotebook is Initializable {
 		require (_id < contacts.length, "id is less than number of contact list");
 
 		Contact memory contact = contacts[_id];
-		delete contact;
+		delete contacts[_id];
 
 		emit RemovedContact(_id);
 
