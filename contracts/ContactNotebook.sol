@@ -11,6 +11,10 @@ contract ContactNotebook is Initializable {
 	}
 	Contact[] public contacts;
 
+	/* Event */ 
+	event CreatedContact(string indexed _name, address indexed _address);
+	event RemovedContact(uint256 indexed id);
+	
 
 	/* Constructor */ 
 	function initialize(uint256 _testNum) public initializer {
@@ -31,6 +35,8 @@ contract ContactNotebook is Initializable {
 		id = getNumberOfContact() - 1;  // Reference getNumberOfContact function which is written below
 		//id = contacts.length - 1;
 		
+		emit CreatedContact(_name, _address);
+
 		return id;
 	}
 
@@ -63,6 +69,7 @@ contract ContactNotebook is Initializable {
 		Contact memory contact = contacts[_id];
 		delete contact;
 
+		emit RemovedContact(_id);
 		return true;
 	}
 	
